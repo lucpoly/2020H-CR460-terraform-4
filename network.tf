@@ -7,7 +7,7 @@ resource "google_compute_network" "cr460demo" {
 resource "google_compute_subnetwork" "mtl-dmz" {
   name          = "mtl-dmz"
   ip_cidr_range = "172.16.1.0/24"
-  region        = "us-east1"
+  region        = "us-central1"
   network       = google_compute_network.cr460demo.self_link
 }
 
@@ -15,13 +15,13 @@ resource "google_compute_subnetwork" "mtl-workload" {
   name          = "mtl-workload"
   ip_cidr_range = "10.0.1.0/24"
   network       = google_compute_network.cr460demo.self_link
-  region        = "us-east1"
+  region        = "us-central1"
 }
 
 resource "google_compute_subnetwork" "mtl-internal" {
   name          = "mtl-internal"
   ip_cidr_range = "10.0.2.0/24"
-  region        = "us-east1"
+  region        = "us-central1"
   network       = google_compute_network.cr460demo.self_link
 }
 
@@ -29,7 +29,7 @@ resource "google_compute_subnetwork" "mtl-backend" {
   name          = "mtl-backend"
   ip_cidr_range = "10.0.3.0/24"
   network       = google_compute_network.cr460demo.self_link
-  region        = "us-east1"
+  region        = "us-central1"
 }
 
 
@@ -78,7 +78,7 @@ resource "google_compute_firewall" "internal-control" {
 
 
 resource "google_dns_record_set" "jump" {
-  name = "jump.cloudlab.matbilodeau.dev."
+  name = "jump.cloudlab.luc.dev."
   type = "A"
   ttl  = 300
 
@@ -89,7 +89,7 @@ resource "google_dns_record_set" "jump" {
 
 
 resource "google_dns_record_set" "vault" {
-  name = "vault.cloudlab.matbilodeau.dev."
+  name = "vault.cloudlab.luc.dev."
   type = "A"
   ttl  = 300
 

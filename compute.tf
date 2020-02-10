@@ -1,7 +1,7 @@
 resource "google_compute_instance" "jump" {
   name         = "jump"
   machine_type = "f1-micro"
-  zone         = "us-east1-c"
+  zone         = "us-central1-c"
   tags         = ["public"]
 
   boot_disk {
@@ -25,7 +25,7 @@ resource "google_compute_instance" "jump" {
 resource "google_compute_instance" "vault" {
   name         = "vault"
   machine_type = "f1-micro"
-  zone         = "us-east1-c"
+  zone         = "us-central1-c"
   tags         = ["public"]
 
   boot_disk {
@@ -46,7 +46,7 @@ resource "google_compute_instance" "vault" {
 resource "google_compute_instance" "master" {
   name         = "master"
   machine_type = "f1-micro"
-  zone         = "us-east1-c"
+  zone         = "us-central1-c"
   tags         = ["workload"]
 
   boot_disk {
@@ -63,7 +63,7 @@ resource "google_compute_instance" "master" {
 resource "google_compute_instance" "etcd1" {
   name         = "etcd1"
   machine_type = "f1-micro"
-  zone         = "us-east1-c"
+  zone         = "us-central1-c"
   tags         = ["backend"]
 
   boot_disk {
@@ -81,7 +81,7 @@ resource "google_compute_instance" "etcd1" {
   resource "google_compute_instance" "etcd2" {
     name         = "etcd2"
     machine_type = "f1-micro"
-    zone         = "us-east1-c"
+    zone         = "us-central1-c"
     tags         = ["backend"]
 
     boot_disk {
@@ -98,7 +98,7 @@ resource "google_compute_instance" "etcd1" {
     resource "google_compute_instance" "etcd3" {
       name         = "etcd3"
       machine_type = "f1-micro"
-      zone         = "us-east1-c"
+      zone         = "us-central1-c"
       tags         = ["backend"]
 
       boot_disk {
@@ -118,7 +118,7 @@ resource "google_compute_instance_template" "cr460-worker-template" {
   name                 = "cr460-worker-template"
   tags                 = ["workload"]
   machine_type         = "f1-micro"
-  region               = "us-east1"
+  region               = "us-central1"
   can_ip_forward       = false
 
   // Create a new boot disk from an image
@@ -141,13 +141,13 @@ resource "google_compute_instance_group_manager" "cr460-workload-gm" {
     instance_template  = google_compute_instance_template.cr460-worker-template.self_link
     name               = "primary"
   }
-  zone               = "us-east1-c"
+  zone               = "us-central1-c"
 
 }
 
 resource "google_compute_autoscaler" "cr460-autoscaler" {
   name   = "cr460-autoscaler"
-  zone   = "us-east1-c"
+  zone   = "us-central1-c"
   target = google_compute_instance_group_manager.cr460-workload-gm.self_link
 
   autoscaling_policy {
